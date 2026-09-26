@@ -142,7 +142,51 @@ export function Inspector({ s }: { s: Studio }) {
             <span className="ml-2 text-xs text-warning">shrunk to {report.fontSize}pt</span>
           )}
         </p>
-        {report.allIssues.length > 0 && <IssueList issues={report.allIssues} className="mt-2" />}
+        {report.allIssues.length > 0 && (
+          <div className="mt-2 space-y-2">
+            <IssueList issues={report.allIssues} />
+            <div className="flex flex-wrap gap-1.5 pt-1">
+              {report.allIssues.some(
+                (i) => i.code === "outside-printable" || i.code === "off-page",
+              ) && (
+                <button
+                  type="button"
+                  className="inline-flex items-center gap-1 rounded bg-amber-500/15 px-2 py-1 text-xs font-medium text-amber-700 hover:bg-amber-500/25 dark:text-amber-300 transition-colors"
+                  onClick={() => {
+                    const margin = s.calibration?.printableMargin ?? 18;
+                    const page = s.template.pages[f.page];
+                    const pageWidth = page?.width ?? 612;
+                    const pageHeight = page?.height ?? 792;
+                    const newX = Math.max(
+                      margin,
+                      Math.min(f.rect.x, pageWidth - margin - f.rect.width),
+                    );
+                    const newY = Math.max(
+                      margin,
+                      Math.min(f.rect.y, pageHeight - margin - f.rect.height),
+                    );
+                    s.updateField(f.id, {
+                      rect: { ...f.rect, x: Math.round(newX), y: Math.round(newY) },
+                    });
+                  }}
+                >
+                  ⚡ Snap inside 18pt margin
+                </button>
+              )}
+              {(f.id.startsWith("demo_") || f.id.startsWith("stress_")) && (
+                <button
+                  type="button"
+                  className="inline-flex items-center gap-1 rounded bg-destructive/15 px-2 py-1 text-xs font-medium text-destructive hover:bg-destructive/25 transition-colors"
+                  onClick={() => {
+                    s.removeField(f.id);
+                  }}
+                >
+                  🗑️ Remove test field
+                </button>
+              )}
+            </div>
+          </div>
+        )}
       </div>
 
       <Section title="Identity">

@@ -1,3 +1,4 @@
+process.env.NODE_ENV = "production";
 import fs from "node:fs/promises";
 import path from "node:path";
 

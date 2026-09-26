@@ -210,15 +210,19 @@ export function PageCanvas({ s }: { s: Studio }) {
         return (
           <div
             key={f.id}
+            id={`field-box-${f.id}`}
             onPointerDown={(e) => startDrag(e, f, "move")}
             title={`${f.label}${f.line ? ` (line ${f.line})` : ""}`}
             className={cn(
-              "absolute",
+              "absolute transition-shadow duration-150",
               showOutline && "border",
               showOutline && sev === "ok" && "border-info/60 bg-info/5 hover:bg-info/15",
               showOutline && sev === "warning" && "border-warning bg-warning/15",
-              showOutline && sev === "error" && "border-destructive bg-destructive/15",
-              sel && "z-10 border-2 border-ink bg-accent/40 hover:bg-accent/40",
+              showOutline &&
+                sev === "error" &&
+                "border-destructive bg-destructive/15 animate-pulse",
+              sel &&
+                "z-20 border-2 border-primary ring-2 ring-primary ring-offset-1 bg-primary/10 shadow-lg",
               r.hidden && showOutline && "opacity-40",
               mode === "annotate" && tool === "select" && "cursor-move",
             )}
@@ -229,6 +233,12 @@ export function PageCanvas({ s }: { s: Studio }) {
               height: box.height * zoom,
             }}
           >
+            {sel && mode === "annotate" && (
+              <div className="pointer-events-none absolute -top-5 left-0 z-30 flex items-center gap-1 rounded bg-primary px-1.5 py-0.5 text-[10px] font-semibold text-primary-foreground shadow-sm whitespace-nowrap">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-ping" />
+                <span>{f.label}</span>
+              </div>
+            )}
             <Value r={r} zoom={zoom * cal.scaleX} />
             {sel && mode === "annotate" && (
               <div

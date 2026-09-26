@@ -224,11 +224,13 @@ function StudioPage() {
         onClose={() => setDemoOpen(false)}
         onOpenExport={() => setExportOpen(true)}
       />
-      <DemoFloatingPill
-        s={s}
-        onOpenModal={() => setDemoOpen(true)}
-        onOpenExport={() => setExportOpen(true)}
-      />
+      {!demoOpen && (
+        <DemoFloatingPill
+          s={s}
+          onOpenModal={() => setDemoOpen(true)}
+          onOpenExport={() => setExportOpen(true)}
+        />
+      )}
     </div>
   );
 }

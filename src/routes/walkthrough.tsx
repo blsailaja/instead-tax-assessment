@@ -99,7 +99,7 @@ const CHAPTERS: Chapter[] = [
     demoActionSetup: (s) => {
       s.setMode("annotate");
       s.setPage(0);
-      s.setSelectedId("ssn");
+      s.setSelectedId("taxpayer.ssn");
       toast.info("Selected SSN Comb Cell: Notice the 11 character partitions in the live canvas!");
     },
   },

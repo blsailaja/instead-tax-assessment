@@ -1,6 +1,8 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 
+const REPO_BASE = "/instead-tax-assessment";
+
 async function main() {
   const serverPath = path.resolve(".output/server/index.mjs");
   const publicDir = path.resolve(".output/public");
@@ -21,6 +23,7 @@ async function main() {
     waitUntil: () => {}
   };
 
+  // 1. Prerender all key application pages
   for (const route of routes) {
     try {
       const req = new Request(`http://localhost${route}`, {
@@ -29,7 +32,6 @@ async function main() {
       const res = await handler.fetch(req, {}, ctx);
       let html = await res.text();
 
-      // If route is 404, save as 404.html
       let targetFile;
       if (route === "/404") {
         targetFile = path.join(publicDir, "404.html");
@@ -48,15 +50,87 @@ async function main() {
     }
   }
 
-  // Also copy index.html to 404.html if 404.html was not generated
-  const indexPath = path.join(publicDir, "index.html");
-  const fallback404 = path.join(publicDir, "404.html");
-  try {
-    await fs.access(fallback404);
-  } catch {
-    await fs.copyFile(indexPath, fallback404);
-    console.log("Copied index.html to 404.html for GitHub Pages SPA routing fallback");
+  // 2. Add .nojekyll so GitHub Pages serves all assets verbatim
+  await fs.writeFile(path.join(publicDir, ".nojekyll"), "", "utf8");
+  console.log("Created .nojekyll");
+
+  // 3. Patch all HTML files for GitHub Pages subpath
+  async function patchHtmlFiles(dir) {
+    const entries = await fs.readdir(dir, { withFileTypes: true });
+    for (const entry of entries) {
+      const fullPath = path.join(dir, entry.name);
+      if (entry.isDirectory()) {
+        await patchHtmlFiles(fullPath);
+      } else if (entry.isFile() && entry.name.endsWith(".html")) {
+        let content = await fs.readFile(fullPath, "utf8");
+
+        // Inject <base> tag after <head>
+        if (!content.includes('<base href="')) {
+          content = content.replace("<head>", `<head><base href="${REPO_BASE}/"/>`);
+        }
+
+        // Replace asset URLs
+        content = content.replaceAll('href="/assets/', `href="${REPO_BASE}/assets/`);
+        content = content.replaceAll('src="/assets/', `src="${REPO_BASE}/assets/`);
+        content = content.replaceAll('href="/favicon.ico"', `href="${REPO_BASE}/favicon.ico"`);
+
+        // Replace internal navigation links
+        content = content.replaceAll('href="/studio"', `href="${REPO_BASE}/studio"`);
+        content = content.replaceAll('href="/spec"', `href="${REPO_BASE}/spec"`);
+        content = content.replaceAll('href="/walkthrough"', `href="${REPO_BASE}/walkthrough"`);
+        content = content.replaceAll('href="/"', `href="${REPO_BASE}/"`);
+
+        await fs.writeFile(fullPath, content, "utf8");
+        console.log(`Patched HTML for Pages: ${path.relative(process.cwd(), fullPath)}`);
+      }
+    }
   }
+  await patchHtmlFiles(publicDir);
+
+  // 4. Patch JS bundles in assets for subpath dynamic imports & router basepath
+  const assetsDir = path.join(publicDir, "assets");
+  const assetFiles = await fs.readdir(assetsDir);
+
+  for (const file of assetFiles) {
+    if (!file.endsWith(".js") && !file.endsWith(".mjs")) continue;
+    const filePath = path.join(assetsDir, file);
+    let js = await fs.readFile(filePath, "utf8");
+    let modified = false;
+
+    // Fix Vite modulepreload chunk loader: ,a_=function(e){return`/`+e}
+    if (js.includes(",a_=function(e){return`/`+e}")) {
+      js = js.replace(",a_=function(e){return`/`+e}", `,a_=function(e){return\`${REPO_BASE}/\`+e}`);
+      modified = true;
+      console.log(`Patched chunk loader in ${file}`);
+    }
+
+    // Fix TanStack router basepath: e.update({basepath:``,
+    if (js.includes("e.update({basepath:``,")) {
+      js = js.replace("e.update({basepath:``,", `e.update({basepath:\`${REPO_BASE}\`,`);
+      modified = true;
+      console.log(`Patched router basepath in ${file}`);
+    }
+
+    // Fix style href inside bundle
+    if (js.includes('="/assets/styles-')) {
+      js = js.replaceAll('="/assets/styles-', `="${REPO_BASE}/assets/styles-`);
+      modified = true;
+      console.log(`Patched style bundle ref in ${file}`);
+    }
+
+    // Fix worker ref
+    if (js.includes('="/assets/pdf.worker')) {
+      js = js.replaceAll('="/assets/pdf.worker', `="${REPO_BASE}/assets/pdf.worker`);
+      modified = true;
+      console.log(`Patched pdf worker ref in ${file}`);
+    }
+
+    if (modified) {
+      await fs.writeFile(filePath, js, "utf8");
+    }
+  }
+
+  console.log("GitHub Pages asset and routing preparation complete!");
 }
 
 main().catch(err => {

@@ -1,0 +1,235 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://instead.com/schemas/form-annotation-v1.json",
+  "title": "INSTEAD Form Annotation",
+  "description": "A versioned, renderer-independent map from structured return data to printable PDF regions.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["specVersion", "form", "units", "origin", "pages", "fields"],
+  "properties": {
+    "specVersion": { "type": "string", "pattern": "^1\\.\\d+\\.\\d+$" },
+    "form": { "$ref": "#/$defs/form" },
+    "units": { "const": "pt" },
+    "origin": { "const": "top-left" },
+    "pages": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/page" }
+    },
+    "defaults": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": { "style": { "$ref": "#/$defs/style" } }
+    },
+    "calibration": { "$ref": "#/$defs/calibration" },
+    "fields": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/field" }
+    }
+  },
+  "$defs": {
+    "form": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "name": { "type": "string", "minLength": 1 },
+        "authority": { "type": "string" },
+        "taxYear": { "type": "integer" },
+        "revision": { "type": "string" },
+        "omb": { "type": "string" },
+        "source": { "type": "string" }
+      }
+    },
+    "page": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["index", "width", "height"],
+      "properties": {
+        "index": { "type": "integer", "minimum": 0 },
+        "width": { "type": "number", "exclusiveMinimum": 0 },
+        "height": { "type": "number", "exclusiveMinimum": 0 },
+        "image": { "type": "string" }
+      }
+    },
+    "rect": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["x", "y", "width", "height"],
+      "properties": {
+        "x": { "type": "number" },
+        "y": { "type": "number" },
+        "width": { "type": "number", "exclusiveMinimum": 0 },
+        "height": { "type": "number", "exclusiveMinimum": 0 }
+      }
+    },
+    "condition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "op"],
+      "properties": {
+        "path": { "type": "string" },
+        "op": { "enum": ["eq", "neq", "in", "exists", "truthy", "gt", "lt"] },
+        "value": {}
+      }
+    },
+    "source": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "path"],
+          "properties": { "kind": { "const": "path" }, "path": { "type": "string" }, "default": {} }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "template"],
+          "properties": { "kind": { "const": "template" }, "template": { "type": "string" } }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "op", "path"],
+          "properties": {
+            "kind": { "const": "aggregate" },
+            "op": { "enum": ["sum", "count", "min", "max", "join"] },
+            "path": { "type": "string" },
+            "separator": { "type": "string" }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "value"],
+          "properties": { "kind": { "const": "constant" }, "value": {} }
+        }
+      ]
+    },
+    "format": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": ["kind"],
+          "properties": {
+            "kind": { "const": "text" },
+            "case": { "enum": ["upper", "lower", "title"] },
+            "maxLength": { "type": "integer", "minimum": 0 }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["kind"],
+          "properties": {
+            "kind": { "const": "currency" },
+            "decimals": { "type": "integer", "minimum": 0 },
+            "thousandsSeparator": { "type": "string" },
+            "negativeStyle": { "enum": ["minus", "parentheses"] },
+            "zero": { "enum": ["blank", "zero", "dash"] },
+            "symbol": { "type": "string" }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["kind", "pattern"],
+          "properties": {
+            "kind": { "const": "mask" },
+            "pattern": { "type": "string" },
+            "optionalTail": { "type": "boolean" }
+          },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["kind", "pattern"],
+          "properties": { "kind": { "const": "date" }, "pattern": { "type": "string" } },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["kind"],
+          "properties": { "kind": { "const": "digits" } },
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "required": ["kind", "checkedWhen"],
+          "properties": {
+            "kind": { "const": "checkbox" },
+            "checkedWhen": {
+              "type": "object",
+              "required": ["op"],
+              "properties": {
+                "op": { "enum": ["eq", "neq", "in", "exists", "truthy", "gt", "lt"] },
+                "value": {}
+              },
+              "additionalProperties": false
+            },
+            "mark": { "enum": ["x", "check"] }
+          },
+          "additionalProperties": false
+        }
+      ]
+    },
+    "style": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "fontFamily": { "enum": ["sans", "serif", "mono"] },
+        "fontSize": { "type": "number", "exclusiveMinimum": 0 },
+        "minFontSize": { "type": "number", "exclusiveMinimum": 0 },
+        "color": { "type": "string" },
+        "align": { "enum": ["left", "center", "right"] },
+        "verticalAlign": { "enum": ["top", "middle", "bottom"] },
+        "padding": {
+          "type": "object",
+          "required": ["x", "y"],
+          "properties": { "x": { "type": "number" }, "y": { "type": "number" } },
+          "additionalProperties": false
+        },
+        "overflow": { "enum": ["shrink", "clip", "error"] },
+        "letterSpacing": { "type": "number" }
+      }
+    },
+    "calibration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["offsetX", "offsetY", "scaleX", "scaleY", "printableMargin"],
+      "properties": {
+        "offsetX": { "type": "number" },
+        "offsetY": { "type": "number" },
+        "scaleX": { "type": "number", "exclusiveMinimum": 0 },
+        "scaleY": { "type": "number", "exclusiveMinimum": 0 },
+        "printableMargin": { "type": "number", "minimum": 0 }
+      }
+    },
+    "field": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "label", "page", "rect", "type", "source"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "label": { "type": "string", "minLength": 1 },
+        "line": { "type": ["string", "null"] },
+        "page": { "type": "integer", "minimum": 0 },
+        "rect": { "$ref": "#/$defs/rect" },
+        "type": { "enum": ["text", "currency", "checkbox", "comb", "multiline", "date"] },
+        "source": { "$ref": "#/$defs/source" },
+        "format": { "$ref": "#/$defs/format" },
+        "style": { "$ref": "#/$defs/style" },
+        "condition": { "$ref": "#/$defs/condition" },
+        "comb": {
+          "type": "object",
+          "required": ["cells"],
+          "properties": { "cells": { "type": "integer", "minimum": 1 } },
+          "additionalProperties": false
+        },
+        "pdfFieldName": { "type": "string" },
+        "notes": { "type": "string" }
+      }
+    }
+  }
+}

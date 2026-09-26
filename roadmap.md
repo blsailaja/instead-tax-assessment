@@ -1,0 +1,21 @@
+# Roadmap — Tax Form Annotation Spec (Instead technical test)
+
+- [x] Annotation spec (types, path resolver, formatters, layout engine) + tests
+- [x] Form 1040 template (66 mapped fields) + sample nested return data
+- [x] Editor: editable field mapping (coordinates, labels, data types, sources)
+- [x] Live validation: outside printable area, overlaps form ink, overlaps other fields, missing data, text overflow
+- [x] Print calibration: offsets, scale, alignment guides, test-page preview/download
+- [x] PDF import for source forms (render pages, auto-detect AcroForm boxes)
+- [x] Export: spec JSON, filled PDF, overlay-only PDF, selectable page ranges
+- [x] INSTEAD-branded specification, landing page, and studio
+- [ ] Publish the TypeScript schema and machine-readable JSON Schema
+- [ ] Add a focused Form 1040 Page 1 example annotation file
+- [ ] Add a downloadable written specification covering design, coordinates, trade-offs, decisions, and future enhancements
+- [ ] Include Mermaid system, rendering, and validation diagrams in the document package
+- [ ] Verify the INSTEAD home, studio, specification, and document downloads
+- [ ] Add AI-assisted client tax-document extraction and candidate field mapping
+- [ ] Add undo/redo history for field creation, movement, resizing, and edits
+- [ ] Add hosted template and calibration saving, reopening, duplication, and versioning
+- [x] Fix all build and runtime errors so the browser preview loads cleanly
+- [ ] Audit technical-test deliverables and prepare a sub-five-minute walkthrough script and submission guide
+- [ ] Record and verify the walkthrough video before submission

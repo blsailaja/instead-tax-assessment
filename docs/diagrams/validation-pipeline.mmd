@@ -1,0 +1,12 @@
+flowchart TD
+  F[Field plus resolved value] --> A{Page exists and rectangle is on page?}
+  A -- No --> E1[Error: off-page]
+  A -- Yes --> M{Inside printable margin?}
+  M -- No --> W1[Warning: outside printable area]
+  M -- Yes --> O{Overlaps another field?}
+  O -- Yes --> E2[Error: field overlap]
+  O -- No --> I{Covers source-form ink?}
+  I -- Yes --> W2[Warning: ink overlap]
+  I -- No --> V{Formatted value fits?}
+  V -- No --> E3[Error or warning: overflow]
+  V -- Yes --> OK[Ready to render]

@@ -1,0 +1,218 @@
+{
+  "specVersion": "1.0.0",
+  "form": {
+    "id": "irs-f1040",
+    "name": "U.S. Individual Income Tax Return",
+    "authority": "IRS",
+    "taxYear": 2025,
+    "revision": "2025",
+    "omb": "1545-0074"
+  },
+  "units": "pt",
+  "origin": "top-left",
+  "pages": [
+    {
+      "index": 0,
+      "width": 612,
+      "height": 792
+    }
+  ],
+  "defaults": {
+    "style": {
+      "fontFamily": "sans",
+      "fontSize": 9,
+      "color": "#0b1f4d",
+      "align": "left",
+      "verticalAlign": "middle",
+      "padding": {
+        "x": 2,
+        "y": 1
+      },
+      "overflow": "shrink",
+      "minFontSize": 6
+    }
+  },
+  "fields": [
+    {
+      "id": "taxpayer.firstName",
+      "label": "Your first name and middle initial",
+      "line": null,
+      "page": 0,
+      "rect": {
+        "x": 36.0,
+        "y": 94.0,
+        "width": 215.25,
+        "height": 14.0
+      },
+      "type": "text",
+      "source": {
+        "kind": "template",
+        "template": "{taxpayer.firstName} {taxpayer.middleInitial}"
+      },
+      "format": {
+        "kind": "text",
+        "case": "upper"
+      },
+      "pdfFieldName": "f1_14[0]"
+    },
+    {
+      "id": "taxpayer.lastName",
+      "label": "Last name",
+      "line": null,
+      "page": 0,
+      "rect": {
+        "x": 253.0,
+        "y": 94.0,
+        "width": 214.25,
+        "height": 14.0
+      },
+      "type": "text",
+      "source": {
+        "kind": "path",
+        "path": "taxpayer.lastName"
+      },
+      "format": {
+        "kind": "text",
+        "case": "upper"
+      },
+      "pdfFieldName": "f1_15[0]"
+    },
+    {
+      "id": "taxpayer.ssn",
+      "label": "Your social security number",
+      "line": null,
+      "page": 0,
+      "rect": {
+        "x": 469.0,
+        "y": 94.0,
+        "width": 107.0,
+        "height": 14.0
+      },
+      "type": "text",
+      "source": {
+        "kind": "path",
+        "path": "taxpayer.ssn"
+      },
+      "format": {
+        "kind": "mask",
+        "pattern": "###-##-####"
+      },
+      "style": {
+        "align": "center",
+        "letterSpacing": 1
+      },
+      "pdfFieldName": "f1_16[0]"
+    },
+    {
+      "id": "filingStatus.S",
+      "label": "Filing status: Single",
+      "line": null,
+      "page": 0,
+      "rect": {
+        "x": 97.6,
+        "y": 206.0,
+        "width": 8.0,
+        "height": 8.0
+      },
+      "type": "checkbox",
+      "source": {
+        "kind": "path",
+        "path": "filingStatus"
+      },
+      "format": {
+        "kind": "checkbox",
+        "checkedWhen": {
+          "op": "eq",
+          "value": "S"
+        },
+        "mark": "x"
+      },
+      "pdfFieldName": "c1_8[0]"
+    },
+    {
+      "id": "filingStatus.MFJ",
+      "label": "Filing status: Married filing jointly",
+      "line": null,
+      "page": 0,
+      "rect": {
+        "x": 97.6,
+        "y": 218.0,
+        "width": 8.0,
+        "height": 8.0
+      },
+      "type": "checkbox",
+      "source": {
+        "kind": "path",
+        "path": "filingStatus"
+      },
+      "format": {
+        "kind": "checkbox",
+        "checkedWhen": {
+          "op": "eq",
+          "value": "MFJ"
+        },
+        "mark": "x"
+      },
+      "pdfFieldName": "c1_8[1]"
+    },
+    {
+      "id": "line1a",
+      "label": "Wages from Form(s) W-2, box 1",
+      "line": "1a",
+      "page": 0,
+      "rect": {
+        "x": 504.0,
+        "y": 450.0,
+        "width": 72.0,
+        "height": 12.0
+      },
+      "type": "currency",
+      "source": {
+        "kind": "aggregate",
+        "op": "sum",
+        "path": "income.w2[*].wages"
+      },
+      "format": {
+        "kind": "currency",
+        "decimals": 0,
+        "thousandsSeparator": ",",
+        "negativeStyle": "parentheses",
+        "zero": "blank"
+      },
+      "style": {
+        "align": "right",
+        "fontFamily": "mono"
+      },
+      "pdfFieldName": "f1_47[0]"
+    },
+    {
+      "id": "line1z",
+      "label": "Add lines 1a through 1h",
+      "line": "1z",
+      "page": 0,
+      "rect": {
+        "x": 504.0,
+        "y": 558.0,
+        "width": 72.0,
+        "height": 12.0
+      },
+      "type": "currency",
+      "source": {
+        "kind": "path",
+        "path": "summary.line1z"
+      },
+      "format": {
+        "kind": "currency",
+        "decimals": 0,
+        "thousandsSeparator": ",",
+        "negativeStyle": "parentheses",
+        "zero": "blank"
+      },
+      "style": {
+        "align": "right",
+        "fontFamily": "mono"
+      },
+      "pdfFieldName": "f1_57[0]"
+    }
+  ]
+}

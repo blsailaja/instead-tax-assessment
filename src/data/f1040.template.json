@@ -1,0 +1,1758 @@
+{
+  "specVersion": "1.0.0",
+  "form": {
+    "id": "irs-f1040",
+    "name": "U.S. Individual Income Tax Return",
+    "authority": "IRS",
+    "taxYear": 2025,
+    "revision": "2025",
+    "omb": "1545-0074",
+    "source": "/forms/f1040-2025.pdf"
+  },
+  "units": "pt",
+  "origin": "top-left",
+  "pages": [
+    {
+      "index": 0,
+      "width": 612,
+      "height": 792,
+      "image": "/forms/f1040-2025-p1.png"
+    },
+    {
+      "index": 1,
+      "width": 612,
+      "height": 792,
+      "image": "/forms/f1040-2025-p2.png"
+    }
+  ],
+  "defaults": {
+    "style": {
+      "fontFamily": "sans",
+      "fontSize": 9,
+      "color": "#0b1f4d",
+      "align": "left",
+      "verticalAlign": "middle",
+      "padding": {
+        "x": 2,
+        "y": 1
+      },
+      "overflow": "shrink",
+      "minFontSize": 6
+    }
+  },
+  "fields": [
+    {
+      "id": "taxpayer.firstName",
+      "label": "Your first name and middle initial",
+      "line": null,
+      "page": 0,
+      "rect": {
+        "x": 36.0,
+        "y": 94.0,
+        "width": 215.25,
+        "height": 14.0
+      },
+      "type": "text",
+      "source": {
+        "kind": "template",
+        "template": "{taxpayer.firstName} {taxpayer.middleInitial}"
+      },
+      "format": {
+        "kind": "text",
+        "case": "upper"
+      },
+      "pdfFieldName": "f1_14[0]"
+    },
+    {
+      "id": "taxpayer.lastName",
+      "label": "Last name",
+      "line": null,
+      "page": 0,
+      "rect": {
+        "x": 253.0,
+        "y": 94.0,
+        "width": 214.25,
+        "height": 14.0
+      },
+      "type": "text",
+      "source": {
+        "kind": "path",
+        "path": "taxpayer.lastName"
+      },
+      "format": {
+        "kind": "text",
+        "case": "upper"
+      },
+      "pdfFieldName": "f1_15[0]"
+    },
+    {
+      "id": "taxpayer.ssn",
+      "label": "Your social security number",
+      "line": null,
+      "page": 0,
+      "rect": {
+        "x": 469.0,
+        "y": 94.0,
+        "width": 107.0,
+        "height": 14.0
+      },
+      "type": "text",
+      "source": {
+        "kind": "path",
+        "path": "taxpayer.ssn"
+      },
+      "format": {
+        "kind": "mask",
+        "pattern": "###-##-####"
+      },
+      "style": {
+        "align": "center",
+        "letterSpacing": 1
+      },
+      "pdfFieldName": "f1_16[0]"
+    },
+    {
+      "id": "spouse.firstName",
+      "label": "Spouse first name and middle initial",
+      "line": null,
+      "page": 0,
+      "rect": {
+        "x": 36.0,
+        "y": 118.0,
+        "width": 215.25,
+        "height": 14.0
+      },
+      "type": "text",
+      "source": {
+        "kind": "template",
+        "template": "{spouse.firstName} {spouse.middleInitial}"
+      },
+      "format": {
+        "kind": "text",
+        "case": "upper"
+      },
+      "condition": {
+        "path": "filingStatus",
+        "op": "in",
+        "value": ["MFJ", "MFS"]
+      },
+      "pdfFieldName": "f1_17[0]"
+    },
+    {
+      "id": "spouse.lastName",
+      "label": "Spouse last name",
+      "line": null,
+      "page": 0,
+      "rect": {
+        "x": 253.0,
+        "y": 118.0,
+        "width": 214.25,
+        "height": 14.0
+      },
+      "type": "text",
+      "source": {
+        "kind": "path",
+        "path": "spouse.lastName"
+      },
+      "format": {
+        "kind": "text",
+        "case": "upper"
+      },
+      "condition": {
+        "path": "filingStatus",
+        "op": "in",
+        "value": ["MFJ", "MFS"]
+      },
+      "pdfFieldName": "f1_18[0]"
+    },
+    {
+      "id": "spouse.ssn",
+      "label": "Spouse social security number",
+      "line": null,
+      "page": 0,
+      "rect": {
+        "x": 469.0,
+        "y": 118.0,
+        "width": 107.0,
+        "height": 14.0
+      },
+      "type": "text",
+      "source": {
+        "kind": "path",
+        "path": "spouse.ssn"
+      },
+      "format": {
+        "kind": "mask",
+        "pattern": "###-##-####"
+      },
+      "style": {
+        "align": "center",
+        "letterSpacing": 1
+      },
+      "condition": {
+        "path": "filingStatus",
+        "op": "in",
+        "value": ["MFJ", "MFS"]
+      },
+      "pdfFieldName": "f1_19[0]"
+    },
+    {
+      "id": "address.street",
+      "label": "Home address",
+      "line": null,
+      "page": 0,
+      "rect": {
+        "x": 36.0,
+        "y": 142.0,
+        "width": 380.85,
+        "height": 14.0
+      },
+      "type": "text",
+      "source": {
+        "kind": "path",
+        "path": "address.street"
+      },
+      "pdfFieldName": "f1_20[0]"
+    },
+    {
+      "id": "address.apt",
+      "label": "Apt. no.",
+      "line": null,
+      "page": 0,
+      "rect": {
+        "x": 418.6,
+        "y": 142.0,
+        "width": 48.65,
+        "height": 14.0
+      },
+      "type": "text",
+      "source": {
+        "kind": "path",
+        "path": "address.apt",
+        "default": ""
+      },
+      "pdfFieldName": "f1_21[0]"
+    },
+    {
+      "id": "address.city",
+      "label": "City, town, or post office",
+      "line": null,
+      "page": 0,
+      "rect": {
+        "x": 36.0,
+        "y": 166.0,
+        "width": 294.45,
+        "height": 14.0
+      },
+      "type": "text",
+      "source": {
+        "kind": "path",
+        "path": "address.city"
+      },
+      "pdfFieldName": "f1_22[0]"
+    },
+    {
+      "id": "address.state",
+      "label": "State",
+      "line": null,
+      "page": 0,
+      "rect": {
+        "x": 332.2,
+        "y": 166.0,
+        "width": 63.05,
+        "height": 14.0
+      },
+      "type": "text",
+      "source": {
+        "kind": "path",
+        "path": "address.state"
+      },
+      "format": {
+        "kind": "text",
+        "case": "upper"
+      },
+      "style": {
+        "align": "center"
+      },
+      "pdfFieldName": "f1_23[0]"
+    },
+    {
+      "id": "address.zip",
+      "label": "ZIP code",
+      "line": null,
+      "page": 0,
+      "rect": {
+        "x": 397.0,
+        "y": 166.0,
+        "width": 70.25,
+        "height": 14.0
+      },
+      "type": "text",
+      "source": {
+        "kind": "path",
+        "path": "address.zip"
+      },
+      "format": {
+        "kind": "mask",
+        "pattern": "#####-####",
+        "optionalTail": true
+      },
+      "style": {
+        "align": "center"
+      },
+      "pdfFieldName": "f1_24[0]"
+    },
+    {
+      "id": "filingStatus.S",
+      "label": "Filing status: Single",
+      "line": null,
+      "page": 0,
+      "rect": {
+        "x": 97.6,
+        "y": 206.0,
+        "width": 8.0,
+        "height": 8.0
+      },
+      "type": "checkbox",
+      "source": {
+        "kind": "path",
+        "path": "filingStatus"
+      },
+      "format": {
+        "kind": "checkbox",
+        "checkedWhen": {
+          "op": "eq",
+          "value": "S"
+        },
+        "mark": "x"
+      },
+      "pdfFieldName": "c1_8[0]"
+    },
+    {
+      "id": "filingStatus.MFJ",
+      "label": "Filing status: Married filing jointly",
+      "line": null,
+      "page": 0,
+      "rect": {
+        "x": 97.6,
+        "y": 218.0,
+        "width": 8.0,
+        "height": 8.0
+      },
+      "type": "checkbox",
+      "source": {
+        "kind": "path",
+        "path": "filingStatus"
+      },
+      "format": {
+        "kind": "checkbox",
+        "checkedWhen": {
+          "op": "eq",
+          "value": "MFJ"
+        },
+        "mark": "x"
+      },
+      "pdfFieldName": "c1_8[1]"
+    },
+    {
+      "id": "filingStatus.MFS",
+      "label": "Filing status: Married filing separately",
+      "line": null,
+      "page": 0,
+      "rect": {
+        "x": 97.6,
+        "y": 230.0,
+        "width": 8.0,
+        "height": 8.0
+      },
+      "type": "checkbox",
+      "source": {
+        "kind": "path",
+        "path": "filingStatus"
+      },
+      "format": {
+        "kind": "checkbox",
+        "checkedWhen": {
+          "op": "eq",
+          "value": "MFS"
+        },
+        "mark": "x"
+      },
+      "pdfFieldName": "c1_8[2]"
+    },
+    {
+      "id": "filingStatus.HOH",
+      "label": "Filing status: Head of household",
+      "line": null,
+      "page": 0,
+      "rect": {
+        "x": 349.6,
+        "y": 206.0,
+        "width": 8.0,
+        "height": 8.0
+      },
+      "type": "checkbox",
+      "source": {
+        "kind": "path",
+        "path": "filingStatus"
+      },
+      "format": {
+        "kind": "checkbox",
+        "checkedWhen": {
+          "op": "eq",
+          "value": "HOH"
+        },
+        "mark": "x"
+      },
+      "pdfFieldName": "c1_8[0]"
+    },
+    {
+      "id": "filingStatus.QSS",
+      "label": "Filing status: Qualifying surviving spouse",
+      "line": null,
+      "page": 0,
+      "rect": {
+        "x": 349.6,
+        "y": 218.0,
+        "width": 8.0,
+        "height": 8.0
+      },
+      "type": "checkbox",
+      "source": {
+        "kind": "path",
+        "path": "filingStatus"
+      },
+      "format": {
+        "kind": "checkbox",
+        "checkedWhen": {
+          "op": "eq",
+          "value": "QSS"
+        },
+        "mark": "x"
+      },
+      "pdfFieldName": "c1_8[1]"
+    },
+    {
+      "id": "dependents[0].firstName",
+      "label": "Dependent 1 First name",
+      "line": null,
+      "page": 0,
+      "rect": {
+        "x": 145.0,
+        "y": 309.0,
+        "width": 106.25,
+        "height": 12.0
+      },
+      "type": "text",
+      "source": {
+        "kind": "path",
+        "path": "dependents[0].firstName"
+      },
+      "style": {
+        "fontSize": 8
+      },
+      "pdfFieldName": "f1_31[0]"
+    },
+    {
+      "id": "dependents[0].lastName",
+      "label": "Dependent 1 Last name",
+      "line": null,
+      "page": 0,
+      "rect": {
+        "x": 145.0,
+        "y": 321.0,
+        "width": 106.25,
+        "height": 12.0
+      },
+      "type": "text",
+      "source": {
+        "kind": "path",
+        "path": "dependents[0].lastName"
+      },
+      "style": {
+        "fontSize": 8
+      },
+      "pdfFieldName": "f1_35[0]"
+    },
+    {
+      "id": "dependents[0].ssn",
+      "label": "Dependent 1 SSN",
+      "line": null,
+      "page": 0,
+      "rect": {
+        "x": 145.0,
+        "y": 333.0,
+        "width": 106.25,
+        "height": 12.0
+      },
+      "type": "text",
+      "source": {
+        "kind": "path",
+        "path": "dependents[0].ssn"
+      },
+      "format": {
+        "kind": "mask",
+        "pattern": "###-##-####"
+      },
+      "style": {
+        "fontSize": 8
+      },
+      "pdfFieldName": "f1_39[0]"
+    },
+    {
+      "id": "dependents[0].relationship",
+      "label": "Dependent 1 Relationship",
+      "line": null,
+      "page": 0,
+      "rect": {
+        "x": 145.0,
+        "y": 345.0,
+        "width": 106.25,
+        "height": 12.0
+      },
+      "type": "text",
+      "source": {
+        "kind": "path",
+        "path": "dependents[0].relationship"
+      },
+      "style": {
+        "fontSize": 8
+      },
+      "pdfFieldName": "f1_43[0]"
+    },
+    {
+      "id": "dependents[1].firstName",
+      "label": "Dependent 2 First name",
+      "line": null,
+      "page": 0,
+      "rect": {
+        "x": 253.0,
+        "y": 309.0,
+        "width": 106.25,
+        "height": 12.0
+      },
+      "type": "text",
+      "source": {
+        "kind": "path",
+        "path": "dependents[1].firstName"
+      },
+      "style": {
+        "fontSize": 8
+      },
+      "pdfFieldName": "f1_32[0]"
+    },
+    {
+      "id": "dependents[1].lastName",
+      "label": "Dependent 2 Last name",
+      "line": null,
+      "page": 0,
+      "rect": {
+        "x": 253.0,
+        "y": 321.0,
+        "width": 106.25,
+        "height": 12.0
+      },
+      "type": "text",
+      "source": {
+        "kind": "path",
+        "path": "dependents[1].lastName"
+      },
+      "style": {
+        "fontSize": 8
+      },
+      "pdfFieldName": "f1_36[0]"
+    },
+    {
+      "id": "dependents[1].ssn",
+      "label": "Dependent 2 SSN",
+      "line": null,
+      "page": 0,
+      "rect": {
+        "x": 253.0,
+        "y": 333.0,
+        "width": 106.25,
+        "height": 12.0
+      },
+      "type": "text",
+      "source": {
+        "kind": "path",
+        "path": "dependents[1].ssn"
+      },
+      "format": {
+        "kind": "mask",
+        "pattern": "###-##-####"
+      },
+      "style": {
+        "fontSize": 8
+      },
+      "pdfFieldName": "f1_40[0]"
+    },
+    {
+      "id": "dependents[1].relationship",
+      "label": "Dependent 2 Relationship",
+      "line": null,
+      "page": 0,
+      "rect": {
+        "x": 253.0,
+        "y": 345.0,
+        "width": 106.25,
+        "height": 12.0
+      },
+      "type": "text",
+      "source": {
+        "kind": "path",
+        "path": "dependents[1].relationship"
+      },
+      "style": {
+        "fontSize": 8
+      },
+      "pdfFieldName": "f1_44[0]"
+    },
+    {
+      "id": "dependents[2].firstName",
+      "label": "Dependent 3 First name",
+      "line": null,
+      "page": 0,
+      "rect": {
+        "x": 361.0,
+        "y": 309.0,
+        "width": 106.25,
+        "height": 12.0
+      },
+      "type": "text",
+      "source": {
+        "kind": "path",
+        "path": "dependents[2].firstName"
+      },
+      "style": {
+        "fontSize": 8
+      },
+      "pdfFieldName": "f1_33[0]"
+    },
+    {
+      "id": "dependents[2].lastName",
+      "label": "Dependent 3 Last name",
+      "line": null,
+      "page": 0,
+      "rect": {
+        "x": 361.0,
+        "y": 321.0,
+        "width": 106.25,
+        "height": 12.0
+      },
+      "type": "text",
+      "source": {
+        "kind": "path",
+        "path": "dependents[2].lastName"
+      },
+      "style": {
+        "fontSize": 8
+      },
+      "pdfFieldName": "f1_37[0]"
+    },
+    {
+      "id": "dependents[2].ssn",
+      "label": "Dependent 3 SSN",
+      "line": null,
+      "page": 0,
+      "rect": {
+        "x": 361.0,
+        "y": 333.0,
+        "width": 106.25,
+        "height": 12.0
+      },
+      "type": "text",
+      "source": {
+        "kind": "path",
+        "path": "dependents[2].ssn"
+      },
+      "format": {
+        "kind": "mask",
+        "pattern": "###-##-####"
+      },
+      "style": {
+        "fontSize": 8
+      },
+      "pdfFieldName": "f1_41[0]"
+    },
+    {
+      "id": "dependents[2].relationship",
+      "label": "Dependent 3 Relationship",
+      "line": null,
+      "page": 0,
+      "rect": {
+        "x": 361.0,
+        "y": 345.0,
+        "width": 106.25,
+        "height": 12.0
+      },
+      "type": "text",
+      "source": {
+        "kind": "path",
+        "path": "dependents[2].relationship"
+      },
+      "style": {
+        "fontSize": 8
+      },
+      "pdfFieldName": "f1_45[0]"
+    },
+    {
+      "id": "dependents[3].firstName",
+      "label": "Dependent 4 First name",
+      "line": null,
+      "page": 0,
+      "rect": {
+        "x": 469.0,
+        "y": 309.0,
+        "width": 107.0,
+        "height": 12.0
+      },
+      "type": "text",
+      "source": {
+        "kind": "path",
+        "path": "dependents[3].firstName"
+      },
+      "style": {
+        "fontSize": 8
+      },
+      "pdfFieldName": "f1_34[0]"
+    },
+    {
+      "id": "dependents[3].lastName",
+      "label": "Dependent 4 Last name",
+      "line": null,
+      "page": 0,
+      "rect": {
+        "x": 469.0,
+        "y": 321.0,
+        "width": 107.0,
+        "height": 12.0
+      },
+      "type": "text",
+      "source": {
+        "kind": "path",
+        "path": "dependents[3].lastName"
+      },
+      "style": {
+        "fontSize": 8
+      },
+      "pdfFieldName": "f1_38[0]"
+    },
+    {
+      "id": "dependents[3].ssn",
+      "label": "Dependent 4 SSN",
+      "line": null,
+      "page": 0,
+      "rect": {
+        "x": 469.0,
+        "y": 333.0,
+        "width": 107.0,
+        "height": 12.0
+      },
+      "type": "text",
+      "source": {
+        "kind": "path",
+        "path": "dependents[3].ssn"
+      },
+      "format": {
+        "kind": "mask",
+        "pattern": "###-##-####"
+      },
+      "style": {
+        "fontSize": 8
+      },
+      "pdfFieldName": "f1_42[0]"
+    },
+    {
+      "id": "dependents[3].relationship",
+      "label": "Dependent 4 Relationship",
+      "line": null,
+      "page": 0,
+      "rect": {
+        "x": 469.0,
+        "y": 345.0,
+        "width": 107.0,
+        "height": 12.0
+      },
+      "type": "text",
+      "source": {
+        "kind": "path",
+        "path": "dependents[3].relationship"
+      },
+      "style": {
+        "fontSize": 8
+      },
+      "pdfFieldName": "f1_46[0]"
+    },
+    {
+      "id": "line1a",
+      "label": "Wages from Form(s) W-2, box 1",
+      "line": "1a",
+      "page": 0,
+      "rect": {
+        "x": 504.0,
+        "y": 450.0,
+        "width": 72.0,
+        "height": 12.0
+      },
+      "type": "currency",
+      "source": {
+        "kind": "aggregate",
+        "op": "sum",
+        "path": "income.w2[*].wages"
+      },
+      "format": {
+        "kind": "currency",
+        "decimals": 0,
+        "thousandsSeparator": ",",
+        "negativeStyle": "parentheses",
+        "zero": "blank"
+      },
+      "style": {
+        "align": "right",
+        "fontFamily": "mono"
+      },
+      "pdfFieldName": "f1_47[0]"
+    },
+    {
+      "id": "line1z",
+      "label": "Add lines 1a through 1h",
+      "line": "1z",
+      "page": 0,
+      "rect": {
+        "x": 504.0,
+        "y": 558.0,
+        "width": 72.0,
+        "height": 12.0
+      },
+      "type": "currency",
+      "source": {
+        "kind": "path",
+        "path": "summary.line1z"
+      },
+      "format": {
+        "kind": "currency",
+        "decimals": 0,
+        "thousandsSeparator": ",",
+        "negativeStyle": "parentheses",
+        "zero": "blank"
+      },
+      "style": {
+        "align": "right",
+        "fontFamily": "mono"
+      },
+      "pdfFieldName": "f1_57[0]"
+    },
+    {
+      "id": "line2a",
+      "label": "Tax-exempt interest",
+      "line": "2a",
+      "page": 0,
+      "rect": {
+        "x": 252.0,
+        "y": 570.0,
+        "width": 71.25,
+        "height": 12.0
+      },
+      "type": "currency",
+      "source": {
+        "kind": "path",
+        "path": "income.interest.taxExempt"
+      },
+      "format": {
+        "kind": "currency",
+        "decimals": 0,
+        "thousandsSeparator": ",",
+        "negativeStyle": "parentheses",
+        "zero": "blank"
+      },
+      "style": {
+        "align": "right",
+        "fontFamily": "mono"
+      },
+      "pdfFieldName": "f1_58[0]"
+    },
+    {
+      "id": "line2b",
+      "label": "Taxable interest",
+      "line": "2b",
+      "page": 0,
+      "rect": {
+        "x": 504.0,
+        "y": 570.0,
+        "width": 72.0,
+        "height": 12.0
+      },
+      "type": "currency",
+      "source": {
+        "kind": "aggregate",
+        "op": "sum",
+        "path": "income.form1099INT[*].interest"
+      },
+      "format": {
+        "kind": "currency",
+        "decimals": 0,
+        "thousandsSeparator": ",",
+        "negativeStyle": "parentheses",
+        "zero": "blank"
+      },
+      "style": {
+        "align": "right",
+        "fontFamily": "mono"
+      },
+      "pdfFieldName": "f1_59[0]"
+    },
+    {
+      "id": "line3a",
+      "label": "Qualified dividends",
+      "line": "3a",
+      "page": 0,
+      "rect": {
+        "x": 252.0,
+        "y": 582.0,
+        "width": 71.25,
+        "height": 12.0
+      },
+      "type": "currency",
+      "source": {
+        "kind": "aggregate",
+        "op": "sum",
+        "path": "income.form1099DIV[*].qualified"
+      },
+      "format": {
+        "kind": "currency",
+        "decimals": 0,
+        "thousandsSeparator": ",",
+        "negativeStyle": "parentheses",
+        "zero": "blank"
+      },
+      "style": {
+        "align": "right",
+        "fontFamily": "mono"
+      },
+      "pdfFieldName": "f1_60[0]"
+    },
+    {
+      "id": "line3b",
+      "label": "Ordinary dividends",
+      "line": "3b",
+      "page": 0,
+      "rect": {
+        "x": 504.0,
+        "y": 582.0,
+        "width": 72.0,
+        "height": 12.0
+      },
+      "type": "currency",
+      "source": {
+        "kind": "aggregate",
+        "op": "sum",
+        "path": "income.form1099DIV[*].ordinary"
+      },
+      "format": {
+        "kind": "currency",
+        "decimals": 0,
+        "thousandsSeparator": ",",
+        "negativeStyle": "parentheses",
+        "zero": "blank"
+      },
+      "style": {
+        "align": "right",
+        "fontFamily": "mono"
+      },
+      "pdfFieldName": "f1_61[0]"
+    },
+    {
+      "id": "line4a",
+      "label": "IRA distributions",
+      "line": "4a",
+      "page": 0,
+      "rect": {
+        "x": 252.0,
+        "y": 606.0,
+        "width": 71.25,
+        "height": 12.0
+      },
+      "type": "currency",
+      "source": {
+        "kind": "path",
+        "path": "income.ira.gross"
+      },
+      "format": {
+        "kind": "currency",
+        "decimals": 0,
+        "thousandsSeparator": ",",
+        "negativeStyle": "parentheses",
+        "zero": "blank"
+      },
+      "style": {
+        "align": "right",
+        "fontFamily": "mono"
+      },
+      "pdfFieldName": "f1_62[0]"
+    },
+    {
+      "id": "line4b",
+      "label": "IRA taxable amount",
+      "line": "4b",
+      "page": 0,
+      "rect": {
+        "x": 504.0,
+        "y": 606.0,
+        "width": 72.0,
+        "height": 12.0
+      },
+      "type": "currency",
+      "source": {
+        "kind": "path",
+        "path": "income.ira.taxable"
+      },
+      "format": {
+        "kind": "currency",
+        "decimals": 0,
+        "thousandsSeparator": ",",
+        "negativeStyle": "parentheses",
+        "zero": "blank"
+      },
+      "style": {
+        "align": "right",
+        "fontFamily": "mono"
+      },
+      "pdfFieldName": "f1_63[0]"
+    },
+    {
+      "id": "line7a",
+      "label": "Capital gain or (loss)",
+      "line": "7a",
+      "page": 0,
+      "rect": {
+        "x": 504.0,
+        "y": 690.0,
+        "width": 72.0,
+        "height": 12.0
+      },
+      "type": "currency",
+      "source": {
+        "kind": "path",
+        "path": "income.capitalGain"
+      },
+      "format": {
+        "kind": "currency",
+        "decimals": 0,
+        "thousandsSeparator": ",",
+        "negativeStyle": "parentheses",
+        "zero": "blank"
+      },
+      "style": {
+        "align": "right",
+        "fontFamily": "mono"
+      },
+      "pdfFieldName": "f1_70[0]"
+    },
+    {
+      "id": "line8",
+      "label": "Additional income (Schedule 1)",
+      "line": "8",
+      "page": 0,
+      "rect": {
+        "x": 504.0,
+        "y": 714.0,
+        "width": 72.0,
+        "height": 12.0
+      },
+      "type": "currency",
+      "source": {
+        "kind": "path",
+        "path": "schedules.s1.line10"
+      },
+      "format": {
+        "kind": "currency",
+        "decimals": 0,
+        "thousandsSeparator": ",",
+        "negativeStyle": "parentheses",
+        "zero": "blank"
+      },
+      "style": {
+        "align": "right",
+        "fontFamily": "mono"
+      },
+      "pdfFieldName": "f1_72[0]"
+    },
+    {
+      "id": "line9",
+      "label": "Total income",
+      "line": "9",
+      "page": 0,
+      "rect": {
+        "x": 504.0,
+        "y": 726.0,
+        "width": 72.0,
+        "height": 12.0
+      },
+      "type": "currency",
+      "source": {
+        "kind": "path",
+        "path": "summary.totalIncome"
+      },
+      "format": {
+        "kind": "currency",
+        "decimals": 0,
+        "thousandsSeparator": ",",
+        "negativeStyle": "parentheses",
+        "zero": "blank"
+      },
+      "style": {
+        "align": "right",
+        "fontFamily": "mono"
+      },
+      "pdfFieldName": "f1_73[0]"
+    },
+    {
+      "id": "line10",
+      "label": "Adjustments to income",
+      "line": "10",
+      "page": 0,
+      "rect": {
+        "x": 504.0,
+        "y": 738.0,
+        "width": 72.0,
+        "height": 12.0
+      },
+      "type": "currency",
+      "source": {
+        "kind": "path",
+        "path": "schedules.s1.line26"
+      },
+      "format": {
+        "kind": "currency",
+        "decimals": 0,
+        "thousandsSeparator": ",",
+        "negativeStyle": "parentheses",
+        "zero": "blank"
+      },
+      "style": {
+        "align": "right",
+        "fontFamily": "mono"
+      },
+      "pdfFieldName": "f1_74[0]"
+    },
+    {
+      "id": "line11a",
+      "label": "Adjusted gross income",
+      "line": "11a",
+      "page": 0,
+      "rect": {
+        "x": 504.0,
+        "y": 750.0,
+        "width": 72.0,
+        "height": 12.0
+      },
+      "type": "currency",
+      "source": {
+        "kind": "path",
+        "path": "summary.agi"
+      },
+      "format": {
+        "kind": "currency",
+        "decimals": 0,
+        "thousandsSeparator": ",",
+        "negativeStyle": "parentheses",
+        "zero": "blank"
+      },
+      "style": {
+        "align": "right",
+        "fontFamily": "mono"
+      },
+      "pdfFieldName": "f1_75[0]"
+    },
+    {
+      "id": "line11b",
+      "label": "Adjusted gross income (carried)",
+      "line": "11b",
+      "page": 1,
+      "rect": {
+        "x": 504.0,
+        "y": 36.0,
+        "width": 72.0,
+        "height": 12.0
+      },
+      "type": "currency",
+      "source": {
+        "kind": "path",
+        "path": "summary.agi"
+      },
+      "format": {
+        "kind": "currency",
+        "decimals": 0,
+        "thousandsSeparator": ",",
+        "negativeStyle": "parentheses",
+        "zero": "blank"
+      },
+      "style": {
+        "align": "right",
+        "fontFamily": "mono"
+      },
+      "pdfFieldName": "f2_01[0]"
+    },
+    {
+      "id": "line12e",
+      "label": "Standard or itemized deduction",
+      "line": "12e",
+      "page": 1,
+      "rect": {
+        "x": 504.0,
+        "y": 96.0,
+        "width": 72.0,
+        "height": 12.0
+      },
+      "type": "currency",
+      "source": {
+        "kind": "path",
+        "path": "deductions.amount"
+      },
+      "format": {
+        "kind": "currency",
+        "decimals": 0,
+        "thousandsSeparator": ",",
+        "negativeStyle": "parentheses",
+        "zero": "blank"
+      },
+      "style": {
+        "align": "right",
+        "fontFamily": "mono"
+      },
+      "pdfFieldName": "f2_02[0]"
+    },
+    {
+      "id": "line13a",
+      "label": "Qualified business income deduction",
+      "line": "13a",
+      "page": 1,
+      "rect": {
+        "x": 504.0,
+        "y": 108.0,
+        "width": 72.0,
+        "height": 12.0
+      },
+      "type": "currency",
+      "source": {
+        "kind": "path",
+        "path": "deductions.qbi"
+      },
+      "format": {
+        "kind": "currency",
+        "decimals": 0,
+        "thousandsSeparator": ",",
+        "negativeStyle": "parentheses",
+        "zero": "blank"
+      },
+      "style": {
+        "align": "right",
+        "fontFamily": "mono"
+      },
+      "pdfFieldName": "f2_03[0]"
+    },
+    {
+      "id": "line14",
+      "label": "Total deductions",
+      "line": "14",
+      "page": 1,
+      "rect": {
+        "x": 504.0,
+        "y": 132.0,
+        "width": 72.0,
+        "height": 12.0
+      },
+      "type": "currency",
+      "source": {
+        "kind": "path",
+        "path": "summary.totalDeductions"
+      },
+      "format": {
+        "kind": "currency",
+        "decimals": 0,
+        "thousandsSeparator": ",",
+        "negativeStyle": "parentheses",
+        "zero": "blank"
+      },
+      "style": {
+        "align": "right",
+        "fontFamily": "mono"
+      },
+      "pdfFieldName": "f2_05[0]"
+    },
+    {
+      "id": "line15",
+      "label": "Taxable income",
+      "line": "15",
+      "page": 1,
+      "rect": {
+        "x": 504.0,
+        "y": 144.0,
+        "width": 72.0,
+        "height": 12.0
+      },
+      "type": "currency",
+      "source": {
+        "kind": "path",
+        "path": "summary.taxableIncome"
+      },
+      "format": {
+        "kind": "currency",
+        "decimals": 0,
+        "thousandsSeparator": ",",
+        "negativeStyle": "parentheses",
+        "zero": "blank"
+      },
+      "style": {
+        "align": "right",
+        "fontFamily": "mono"
+      },
+      "pdfFieldName": "f2_06[0]"
+    },
+    {
+      "id": "line16",
+      "label": "Tax",
+      "line": "16",
+      "page": 1,
+      "rect": {
+        "x": 504.0,
+        "y": 156.0,
+        "width": 72.0,
+        "height": 12.0
+      },
+      "type": "currency",
+      "source": {
+        "kind": "path",
+        "path": "summary.tax"
+      },
+      "format": {
+        "kind": "currency",
+        "decimals": 0,
+        "thousandsSeparator": ",",
+        "negativeStyle": "parentheses",
+        "zero": "blank"
+      },
+      "style": {
+        "align": "right",
+        "fontFamily": "mono"
+      },
+      "pdfFieldName": "f2_08[0]"
+    },
+    {
+      "id": "line18",
+      "label": "Add lines 16 and 17",
+      "line": "18",
+      "page": 1,
+      "rect": {
+        "x": 504.0,
+        "y": 180.0,
+        "width": 72.0,
+        "height": 12.0
+      },
+      "type": "currency",
+      "source": {
+        "kind": "path",
+        "path": "summary.tax"
+      },
+      "format": {
+        "kind": "currency",
+        "decimals": 0,
+        "thousandsSeparator": ",",
+        "negativeStyle": "parentheses",
+        "zero": "blank"
+      },
+      "style": {
+        "align": "right",
+        "fontFamily": "mono"
+      },
+      "pdfFieldName": "f2_10[0]"
+    },
+    {
+      "id": "line19",
+      "label": "Child tax credit",
+      "line": "19",
+      "page": 1,
+      "rect": {
+        "x": 504.0,
+        "y": 192.0,
+        "width": 72.0,
+        "height": 12.0
+      },
+      "type": "currency",
+      "source": {
+        "kind": "path",
+        "path": "credits.childTaxCredit"
+      },
+      "format": {
+        "kind": "currency",
+        "decimals": 0,
+        "thousandsSeparator": ",",
+        "negativeStyle": "parentheses",
+        "zero": "blank"
+      },
+      "style": {
+        "align": "right",
+        "fontFamily": "mono"
+      },
+      "pdfFieldName": "f2_11[0]"
+    },
+    {
+      "id": "line21",
+      "label": "Add lines 19 and 20",
+      "line": "21",
+      "page": 1,
+      "rect": {
+        "x": 504.0,
+        "y": 216.0,
+        "width": 72.0,
+        "height": 12.0
+      },
+      "type": "currency",
+      "source": {
+        "kind": "path",
+        "path": "credits.childTaxCredit"
+      },
+      "format": {
+        "kind": "currency",
+        "decimals": 0,
+        "thousandsSeparator": ",",
+        "negativeStyle": "parentheses",
+        "zero": "blank"
+      },
+      "style": {
+        "align": "right",
+        "fontFamily": "mono"
+      },
+      "pdfFieldName": "f2_13[0]"
+    },
+    {
+      "id": "line22",
+      "label": "Tax minus credits",
+      "line": "22",
+      "page": 1,
+      "rect": {
+        "x": 504.0,
+        "y": 228.0,
+        "width": 72.0,
+        "height": 12.0
+      },
+      "type": "currency",
+      "source": {
+        "kind": "path",
+        "path": "summary.taxAfterCredits"
+      },
+      "format": {
+        "kind": "currency",
+        "decimals": 0,
+        "thousandsSeparator": ",",
+        "negativeStyle": "parentheses",
+        "zero": "blank"
+      },
+      "style": {
+        "align": "right",
+        "fontFamily": "mono"
+      },
+      "pdfFieldName": "f2_14[0]"
+    },
+    {
+      "id": "line24",
+      "label": "Total tax",
+      "line": "24",
+      "page": 1,
+      "rect": {
+        "x": 504.0,
+        "y": 252.0,
+        "width": 72.0,
+        "height": 12.0
+      },
+      "type": "currency",
+      "source": {
+        "kind": "path",
+        "path": "summary.totalTax"
+      },
+      "format": {
+        "kind": "currency",
+        "decimals": 0,
+        "thousandsSeparator": ",",
+        "negativeStyle": "parentheses",
+        "zero": "blank"
+      },
+      "style": {
+        "align": "right",
+        "fontFamily": "mono"
+      },
+      "pdfFieldName": "f2_16[0]"
+    },
+    {
+      "id": "line25d",
+      "label": "Total federal withholding",
+      "line": "25d",
+      "page": 1,
+      "rect": {
+        "x": 504.0,
+        "y": 312.0,
+        "width": 72.0,
+        "height": 12.0
+      },
+      "type": "currency",
+      "source": {
+        "kind": "path",
+        "path": "summary.withholding"
+      },
+      "format": {
+        "kind": "currency",
+        "decimals": 0,
+        "thousandsSeparator": ",",
+        "negativeStyle": "parentheses",
+        "zero": "blank"
+      },
+      "style": {
+        "align": "right",
+        "fontFamily": "mono"
+      },
+      "pdfFieldName": "f2_20[0]"
+    },
+    {
+      "id": "line33",
+      "label": "Total payments",
+      "line": "33",
+      "page": 1,
+      "rect": {
+        "x": 504.0,
+        "y": 468.0,
+        "width": 72.0,
+        "height": 12.0
+      },
+      "type": "currency",
+      "source": {
+        "kind": "path",
+        "path": "summary.totalPayments"
+      },
+      "format": {
+        "kind": "currency",
+        "decimals": 0,
+        "thousandsSeparator": ",",
+        "negativeStyle": "parentheses",
+        "zero": "blank"
+      },
+      "style": {
+        "align": "right",
+        "fontFamily": "mono"
+      },
+      "pdfFieldName": "f2_29[0]"
+    },
+    {
+      "id": "line34",
+      "label": "Amount overpaid",
+      "line": "34",
+      "page": 1,
+      "rect": {
+        "x": 504.0,
+        "y": 480.0,
+        "width": 72.0,
+        "height": 12.0
+      },
+      "type": "currency",
+      "source": {
+        "kind": "path",
+        "path": "summary.overpaid"
+      },
+      "format": {
+        "kind": "currency",
+        "decimals": 0,
+        "thousandsSeparator": ",",
+        "negativeStyle": "parentheses",
+        "zero": "blank"
+      },
+      "style": {
+        "align": "right",
+        "fontFamily": "mono"
+      },
+      "pdfFieldName": "f2_30[0]"
+    },
+    {
+      "id": "line35a",
+      "label": "Amount refunded to you",
+      "line": "35a",
+      "page": 1,
+      "rect": {
+        "x": 504.0,
+        "y": 492.0,
+        "width": 72.0,
+        "height": 12.0
+      },
+      "type": "currency",
+      "source": {
+        "kind": "path",
+        "path": "refund.amount"
+      },
+      "format": {
+        "kind": "currency",
+        "decimals": 0,
+        "thousandsSeparator": ",",
+        "negativeStyle": "parentheses",
+        "zero": "blank"
+      },
+      "style": {
+        "align": "right",
+        "fontFamily": "mono"
+      },
+      "pdfFieldName": "f2_31[0]"
+    },
+    {
+      "id": "line37",
+      "label": "Amount you owe",
+      "line": "37",
+      "page": 1,
+      "rect": {
+        "x": 504.0,
+        "y": 552.0,
+        "width": 72.0,
+        "height": 12.0
+      },
+      "type": "currency",
+      "source": {
+        "kind": "path",
+        "path": "summary.amountOwed"
+      },
+      "format": {
+        "kind": "currency",
+        "decimals": 0,
+        "thousandsSeparator": ",",
+        "negativeStyle": "parentheses",
+        "zero": "blank"
+      },
+      "style": {
+        "align": "right",
+        "fontFamily": "mono"
+      },
+      "pdfFieldName": "f2_35[0]"
+    },
+    {
+      "id": "line25a",
+      "label": "Withholding from Form(s) W-2",
+      "line": "25a",
+      "page": 1,
+      "rect": {
+        "x": 410.4,
+        "y": 276.0,
+        "width": 71.25,
+        "height": 12.0
+      },
+      "type": "currency",
+      "source": {
+        "kind": "aggregate",
+        "op": "sum",
+        "path": "income.w2[*].federalWithholding"
+      },
+      "format": {
+        "kind": "currency",
+        "decimals": 0,
+        "thousandsSeparator": ",",
+        "negativeStyle": "parentheses",
+        "zero": "blank"
+      },
+      "style": {
+        "align": "right",
+        "fontFamily": "mono"
+      },
+      "pdfFieldName": "f2_17[0]"
+    },
+    {
+      "id": "refund.routing",
+      "label": "Routing number",
+      "line": "35b",
+      "page": 1,
+      "rect": {
+        "x": 180.0,
+        "y": 504.0,
+        "width": 129.6,
+        "height": 11.0
+      },
+      "type": "comb",
+      "source": {
+        "kind": "path",
+        "path": "refund.routingNumber"
+      },
+      "format": {
+        "kind": "digits"
+      },
+      "style": {
+        "fontFamily": "mono"
+      },
+      "comb": {
+        "cells": 9
+      },
+      "pdfFieldName": "f2_32[0]"
+    },
+    {
+      "id": "refund.account",
+      "label": "Account number",
+      "line": "35d",
+      "page": 1,
+      "rect": {
+        "x": 180.0,
+        "y": 516.0,
+        "width": 244.8,
+        "height": 11.0
+      },
+      "type": "comb",
+      "source": {
+        "kind": "path",
+        "path": "refund.accountNumber"
+      },
+      "format": {
+        "kind": "digits"
+      },
+      "style": {
+        "fontFamily": "mono"
+      },
+      "comb": {
+        "cells": 17
+      },
+      "pdfFieldName": "f2_33[0]"
+    },
+    {
+      "id": "taxpayer.occupation",
+      "label": "Your occupation",
+      "line": null,
+      "page": 1,
+      "rect": {
+        "x": 325.0,
+        "y": 646.0,
+        "width": 135.05,
+        "height": 20.0
+      },
+      "type": "text",
+      "source": {
+        "kind": "path",
+        "path": "taxpayer.occupation"
+      },
+      "pdfFieldName": "f2_40[0]"
+    },
+    {
+      "id": "spouse.occupation",
+      "label": "Spouse occupation",
+      "line": null,
+      "page": 1,
+      "rect": {
+        "x": 325.0,
+        "y": 676.0,
+        "width": 135.05,
+        "height": 20.0
+      },
+      "type": "text",
+      "source": {
+        "kind": "path",
+        "path": "spouse.occupation"
+      },
+      "condition": {
+        "path": "filingStatus",
+        "op": "eq",
+        "value": "MFJ"
+      },
+      "pdfFieldName": "f2_42[0]"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "name": "INSTEAD Form Studio",
+  "description": "Tax form annotation, calibration, validation, and export studio for IRS Form 1040 and other tax forms.",
+  "permissions": [],
+  "capabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

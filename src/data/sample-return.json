@@ -1,0 +1,66 @@
+{
+  "taxYear": 2025,
+  "filingStatus": "MFJ",
+  "taxpayer": {
+    "firstName": "Jordan",
+    "middleInitial": "A",
+    "lastName": "Rivera",
+    "ssn": "123456789",
+    "occupation": "Software Engineer"
+  },
+  "spouse": {
+    "firstName": "Casey",
+    "middleInitial": "L",
+    "lastName": "Rivera",
+    "ssn": "987-65-4321",
+    "occupation": "Architect"
+  },
+  "address": {
+    "street": "1450 Market Street",
+    "apt": "12B",
+    "city": "San Francisco",
+    "state": "ca",
+    "zip": "941031234"
+  },
+  "dependents": [
+    { "firstName": "Maya", "lastName": "Rivera", "ssn": "111223333", "relationship": "Daughter" },
+    { "firstName": "Leo", "lastName": "Rivera", "ssn": "444556666", "relationship": "Son" }
+  ],
+  "income": {
+    "w2": [
+      { "employer": "Acme Corp", "wages": 142500, "federalWithholding": 21400 },
+      { "employer": "Studio North LLC", "wages": 98250, "federalWithholding": 13100 }
+    ],
+    "interest": { "taxExempt": 420 },
+    "form1099INT": [
+      { "payer": "First Bank", "interest": 1310.55 },
+      { "payer": "TreasuryDirect", "interest": 640.2 }
+    ],
+    "form1099DIV": [{ "payer": "Vanguard", "ordinary": 3200, "qualified": 2800 }],
+    "ira": { "gross": 0, "taxable": 0 },
+    "capitalGain": -1800
+  },
+  "schedules": { "s1": { "line10": 0, "line26": 6000 } },
+  "deductions": { "type": "standard", "amount": 31500, "qbi": 0 },
+  "credits": { "childTaxCredit": 4400 },
+  "summary": {
+    "line1z": 240750,
+    "totalIncome": 244101,
+    "agi": 238101,
+    "totalDeductions": 31500,
+    "taxableIncome": 206601,
+    "tax": 35120,
+    "taxAfterCredits": 30720,
+    "totalTax": 30720,
+    "withholding": 34500,
+    "totalPayments": 34500,
+    "overpaid": 3780,
+    "amountOwed": 0
+  },
+  "refund": {
+    "amount": 3780,
+    "routingNumber": "121000358",
+    "accountNumber": "000123456789",
+    "type": "checking"
+  }
+}

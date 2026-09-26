@@ -1,0 +1,9 @@
+flowchart LR
+  A[Structured return data] --> B[Resolve source]
+  T[Versioned annotation template] --> B
+  B --> C[Apply conditions and formatting]
+  C --> D[Fit value into field rectangle]
+  D --> E[Validate page, print margin, overlap, overflow]
+  E --> F[Studio preview]
+  E --> G[Completed PDF]
+  E --> H[Calibrated print overlay]

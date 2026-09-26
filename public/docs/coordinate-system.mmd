@@ -1,0 +1,8 @@
+flowchart TB
+  O[Top-left origin: 0,0] --> X[X grows right]
+  O --> Y[Y grows down]
+  R[Field rectangle: x, y, width, height] --> P[PDF output conversion]
+  P --> C[yPDF = pageHeight - y - height]
+  R --> K[Print calibration]
+  K --> S[Scale X and Y]
+  S --> D[Offset X and Y]

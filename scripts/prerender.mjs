@@ -72,6 +72,9 @@ async function main() {
         // Replace asset URLs
         content = content.replaceAll('href="/assets/', `href="${REPO_BASE}/assets/`);
         content = content.replaceAll('src="/assets/', `src="${REPO_BASE}/assets/`);
+        content = content.replaceAll('src="/forms/', `src="${REPO_BASE}/forms/`);
+        content = content.replaceAll('href="/forms/', `href="${REPO_BASE}/forms/`);
+        content = content.replaceAll('href="/docs/', `href="${REPO_BASE}/docs/`);
         content = content.replaceAll('href="/favicon.ico"', `href="${REPO_BASE}/favicon.ico"`);
 
         // Replace internal navigation links
@@ -96,6 +99,18 @@ async function main() {
     const filePath = path.join(assetsDir, file);
     let js = await fs.readFile(filePath, "utf8");
     let modified = false;
+
+    // Fix form images, PDFs, and docs inside JS bundles
+    if (js.includes('"/forms/')) {
+      js = js.replaceAll('"/forms/', `"${REPO_BASE}/forms/`);
+      modified = true;
+      console.log(`Patched forms refs in ${file}`);
+    }
+    if (js.includes('"/docs/')) {
+      js = js.replaceAll('"/docs/', `"${REPO_BASE}/docs/`);
+      modified = true;
+      console.log(`Patched docs refs in ${file}`);
+    }
 
     // Fix Vite modulepreload chunk loader: ,a_=function(e){return`/`+e}
     if (js.includes(",a_=function(e){return`/`+e}")) {

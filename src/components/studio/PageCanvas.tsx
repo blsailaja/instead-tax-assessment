@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { Field, Rect } from "@/lib/annotation/types";
 import { applyCalibration } from "@/lib/annotation/layout";
-import { cn } from "@/lib/utils";
+import { cn, resolveAssetUrl } from "@/lib/utils";
 import { uniqueId, type FieldReport, type Studio } from "./useStudio";
 
 const snap = (n: number) => Math.round(n * 2) / 2;
@@ -178,7 +178,7 @@ export function PageCanvas({ s }: { s: Studio }) {
     >
       {meta.image && (
         <img
-          src={meta.image}
+          src={resolveAssetUrl(meta.image)}
           alt={`${template.form.name} page ${page + 1}`}
           draggable={false}
           className={cn(

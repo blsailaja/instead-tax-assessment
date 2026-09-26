@@ -4,6 +4,7 @@ import sampleJson from "@/data/sample-return.json";
 import type { Calibration, Field, Template } from "@/lib/annotation/types";
 import { DEFAULT_CALIBRATION } from "@/lib/annotation/types";
 import { geometryIssues, layoutField, type Issue, type Rendered } from "@/lib/annotation/layout";
+import { resolveAssetUrl } from "@/lib/utils";
 import { useInk } from "./useInk";
 
 export const BASE_TEMPLATE = templateJson as unknown as Template;
@@ -177,7 +178,8 @@ export function useStudio() {
   const getSourceBytes = async () => {
     if (sourceBytes) return sourceBytes;
     if (!template.form.source) return null;
-    const b = await fetch(template.form.source).then((r) => r.arrayBuffer());
+    const resolvedUrl = resolveAssetUrl(template.form.source);
+    const b = await fetch(resolvedUrl).then((r) => r.arrayBuffer());
     setSourceBytes(b);
     return b;
   };

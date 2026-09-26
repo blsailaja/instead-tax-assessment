@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
 import { Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { resolveAssetUrl } from "@/lib/utils";
 
 export const Route = createFileRoute("/spec")({
   head: () => ({
@@ -90,25 +91,25 @@ function Spec() {
           </h1>
           <div className="mt-6 flex flex-wrap gap-2">
             <Button asChild>
-              <a href="/docs/INSTEAD-annotation-spec.md" download>
+              <a href={resolveAssetUrl("/docs/INSTEAD-annotation-spec.md")} download>
                 <Download />
                 Markdown spec
               </a>
             </Button>
             <Button asChild variant="outline">
-              <a href="/docs/annotation-schema.json" download>
+              <a href={resolveAssetUrl("/docs/annotation-schema.json")} download>
                 <Download />
                 JSON Schema
               </a>
             </Button>
             <Button asChild variant="outline">
-              <a href="/docs/form-1040-page-1.example.json" download>
+              <a href={resolveAssetUrl("/docs/form-1040-page-1.example.json")} download>
                 <Download />
                 1040 example
               </a>
             </Button>
             <Button asChild variant="outline">
-              <a href="/docs/annotation-flow.mmd" download>
+              <a href={resolveAssetUrl("/docs/annotation-flow.mmd")} download>
                 <Download />
                 Mermaid diagrams
               </a>

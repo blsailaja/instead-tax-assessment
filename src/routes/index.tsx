@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
+import { resolveAssetUrl } from "@/lib/utils";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -83,11 +84,18 @@ function Index() {
             and export a production-ready Form 1040.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
+            <a
+              href={resolveAssetUrl("/studio?demo=true")}
+              className="inline-flex h-10 items-center gap-2 rounded-sm bg-primary px-5 font-medium text-primary-foreground hover:bg-primary/90 shadow-sm"
+            >
+              <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+              Try Live Features Demo
+            </a>
             <Link
               to="/studio"
-              className="inline-flex h-10 items-center rounded-sm bg-primary px-5 font-medium text-primary-foreground hover:bg-primary/90"
+              className="inline-flex h-10 items-center rounded-sm border border-input bg-card px-5 font-medium hover:bg-muted"
             >
-              Open the studio
+              Open Studio
             </Link>
             <Link
               to="/walkthrough"

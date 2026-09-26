@@ -10,24 +10,18 @@ async function main() {
   const server = await import(serverPath);
   const handler = server.default;
 
-  const routes = [
-    "/",
-    "/studio",
-    "/spec",
-    "/walkthrough",
-    "/404"
-  ];
+  const routes = ["/", "/studio", "/spec", "/walkthrough", "/404"];
 
   const ctx = {
     context: { waitUntil: () => {} },
-    waitUntil: () => {}
+    waitUntil: () => {},
   };
 
   // 1. Prerender all key application pages
   for (const route of routes) {
     try {
       const req = new Request(`http://localhost${route}`, {
-        headers: { "user-agent": "prerender" }
+        headers: { "user-agent": "prerender" },
       });
       const res = await handler.fetch(req, {}, ctx);
       let html = await res.text();
@@ -44,7 +38,9 @@ async function main() {
       }
 
       await fs.writeFile(targetFile, html, "utf8");
-      console.log(`Prerendered: ${route} -> ${path.relative(process.cwd(), targetFile)} (${html.length} bytes)`);
+      console.log(
+        `Prerendered: ${route} -> ${path.relative(process.cwd(), targetFile)} (${html.length} bytes)`,
+      );
     } catch (err) {
       console.error(`Failed to prerender ${route}:`, err);
     }
@@ -148,7 +144,7 @@ async function main() {
   console.log("GitHub Pages asset and routing preparation complete!");
 }
 
-main().catch(err => {
+main().catch((err) => {
   console.error("Prerender script failed:", err);
   process.exit(1);
 });

@@ -1,10 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   Download,
   FileUp,
   MousePointer2,
   RotateCcw,
+  Sparkles,
   SquarePlus,
   Upload,
   ZoomIn,
@@ -18,6 +19,8 @@ import { Sidebar } from "@/components/studio/Sidebar";
 import { Inspector } from "@/components/studio/Inspector";
 import { CalibrationPanel } from "@/components/studio/CalibrationPanel";
 import { ExportDialog } from "@/components/studio/ExportDialog";
+import { DemoTourModal } from "@/components/studio/DemoTourModal";
+import { DemoFloatingPill } from "@/components/studio/DemoFloatingPill";
 import { importPdf } from "@/lib/annotation/pdf";
 import type { Template } from "@/lib/annotation/types";
 import { cn } from "@/lib/utils";
@@ -49,8 +52,15 @@ const btn =
 function StudioPage() {
   const s = useStudio();
   const [exportOpen, setExportOpen] = useState(false);
+  const [demoOpen, setDemoOpen] = useState(false);
   const pdfInput = useRef<HTMLInputElement>(null);
   const jsonInput = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.location.search.includes("demo=true")) {
+      setDemoOpen(true);
+    }
+  }, []);
 
   const onPdf = async (file?: File) => {
     if (!file) return;
@@ -108,6 +118,14 @@ function StudioPage() {
           hidden
           onChange={(e) => onJson(e.target.files?.[0])}
         />
+        <button
+          className="inline-flex h-8 items-center gap-1.5 rounded-sm border border-primary/40 bg-primary/10 px-3 text-sm font-medium text-primary hover:bg-primary/20 transition-colors shadow-xs"
+          onClick={() => setDemoOpen(true)}
+          title="Interactive Feature Demo & Tour"
+        >
+          <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+          <Sparkles className="h-4 w-4" /> Try Features Demo
+        </button>
         <button className={btn} onClick={() => pdfInput.current?.click()}>
           <FileUp className="h-4 w-4" /> Import PDF
         </button>
@@ -200,6 +218,17 @@ function StudioPage() {
         </aside>
       </div>
       <ExportDialog s={s} open={exportOpen} onOpenChange={setExportOpen} />
+      <DemoTourModal
+        s={s}
+        open={demoOpen}
+        onClose={() => setDemoOpen(false)}
+        onOpenExport={() => setExportOpen(true)}
+      />
+      <DemoFloatingPill
+        s={s}
+        onOpenModal={() => setDemoOpen(true)}
+        onOpenExport={() => setExportOpen(true)}
+      />
     </div>
   );
 }

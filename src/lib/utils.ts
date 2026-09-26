@@ -25,4 +25,3 @@ export function resolveAssetUrl(url: string | undefined | null): string {
   }
   return url;
 }
-
